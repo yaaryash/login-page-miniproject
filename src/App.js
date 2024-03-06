@@ -4,38 +4,39 @@ import "./App.css";
 export default function App() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [err, setErr] = useState("");
+  const [isSubmit, setIsSubmit] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handlesubmit = (e) => {
     e.preventDefault();
     if (username === "user" && password === "password") {
-      setError("");
-      setIsSubmitted(true);
+      setErr("");
+      setIsSubmit(true);
     } else {
-      setError("Invalid username or password");
-      setIsSubmitted(false);
+      setErr("Invalid username or password");
+      setIsSubmit(false);
     }
   };
 
   return (
     <div>
       <h1>Login Page</h1>
-      {isSubmitted ? (
-        <div>
-          <p>Welcome, {username}</p>
-        </div>
+      {isSubmit ? (
+        <p>Welcome, {username}!</p>
       ) : (
-        <form onSubmit={handleSubmit}>
-          {error && <p>{error}</p>}
+        <form onSubmit={handlesubmit}>
+          {err && <p>{err}</p>}
           <div>
-            <label htmlFor="username">username:</label>
+            <label htmlFor="username">Username:</label>
             <input
               id="username"
               type="text"
               placeholder="username"
+              required
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
             />
           </div>
           <div>
@@ -44,8 +45,11 @@ export default function App() {
               id="password"
               type="password"
               placeholder="password"
+              required
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
             />
           </div>
           <div>
